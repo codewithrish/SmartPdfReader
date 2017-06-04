@@ -28,4 +28,8 @@ public interface AppConstants {
     //First Fragment
     public static final String FRAGMENT_API = "api";
     public static final int LOADER_ACCESS_TOKEN = 1;
+
+    //Second Fragment
+    public static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 1;
+    public static final int REQUEST_PERMISSION_SETTING = 2;
 }

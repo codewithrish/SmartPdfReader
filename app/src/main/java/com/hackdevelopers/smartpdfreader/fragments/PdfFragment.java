@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,7 +42,7 @@ import static com.hackdevelopers.smartpdfreader.AppConstants.PICKFILE_RESULT_COD
 
 public class PdfFragment extends Fragment {
 
-    public static String VIDEO_ID = "PLlyCyjh2pUe9wv-hU4my-Nen_SvXIzxGB";
+    public static String VIDEO_ID = "o9WSurgT53o";
     private YouTubePlayer YPlayer;
     private YouTubePlayerSupportFragment mYoutubePlayerFragment;
     private RelativeLayout youtube;
@@ -75,12 +76,13 @@ public class PdfFragment extends Fragment {
                 @Override
                 public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestore) {
                     YPlayer = youTubePlayer;
+                    YPlayer.setShowFullscreenButton(false);
 
                     YPlayer.setPlayerStateChangeListener(playerStateChangeListener);
                     YPlayer.setPlaybackEventListener(playbackEventListener);
 
                     if(!wasRestore) {
-                        YPlayer.cuePlaylist(VIDEO_ID);
+                        YPlayer.cueVideo(VIDEO_ID);
                     }
                 }
 
@@ -221,7 +223,31 @@ public class PdfFragment extends Fragment {
             EventBus bus = EventBus.getDefault();
             bus.post(new SendUriData(pdfPath));
 
+            Toast.makeText(getContext(), getFileName(pdfPath), Toast.LENGTH_SHORT).show();
+
         }
+    }
+
+    public String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
