@@ -1,6 +1,7 @@
 package com.hackdevelopers.smartpdfreader.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
@@ -48,6 +50,7 @@ import static com.hackdevelopers.smartpdfreader.AppConstants.FRAGMENT_API;
 import static com.hackdevelopers.smartpdfreader.AppConstants.LOADER_ACCESS_TOKEN;
 import static com.hackdevelopers.smartpdfreader.AppConstants.PICKFILE_RESULT_CODE;
 import static com.hackdevelopers.smartpdfreader.AppConstants.pdfText;
+import static com.hackdevelopers.smartpdfreader.AppConstants.rateUs;
 import static com.hackdevelopers.smartpdfreader.R.id.viewpager;
 
 /**
@@ -334,10 +337,36 @@ public class SuggestionsFragment extends Fragment implements ApiFragment.Callbac
 
         switch (item.getItemId()) {
             case R.id.one:
-                Toast.makeText(getContext(), "ONE", Toast.LENGTH_SHORT).show();
+                createAndShowDialog();
                 break;
         }
         return true;
     }
+
+    public void createAndShowDialog() {
+        AlertDialog buildexit = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.title)
+                .setMessage(R.string.message)
+                .setPositiveButton("Rate Us", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id="+rateUs));
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        buildexit.show();
+    }
+
 
 }

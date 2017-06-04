@@ -1,12 +1,15 @@
 package com.hackdevelopers.smartpdfreader.fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -257,6 +260,31 @@ public class VideosFragment extends Fragment implements AdapterView.OnItemClickL
             search(searchKeyword);
         }
 
+    }
+
+    public void createAndShowDialog() {
+        AlertDialog buildexit = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.title)
+                .setMessage(R.string.message)
+                .setPositiveButton("Rate Us", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id="+rateUs));
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        buildexit.show();
     }
 
 }

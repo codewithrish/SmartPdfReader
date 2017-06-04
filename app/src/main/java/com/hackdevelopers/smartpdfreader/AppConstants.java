@@ -32,4 +32,8 @@ public interface AppConstants {
     //Second Fragment
     public static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 1;
     public static final int REQUEST_PERMISSION_SETTING = 2;
+
+    public static final String rateUs = "com.hackdevelopers.smartpdfreader";
+
+
 }

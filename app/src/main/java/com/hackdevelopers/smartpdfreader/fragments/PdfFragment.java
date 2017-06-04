@@ -2,6 +2,7 @@ package com.hackdevelopers.smartpdfreader.fragments;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +37,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import static com.hackdevelopers.smartpdfreader.AppConstants.PICKFILE_RESULT_CODE;
+import static com.hackdevelopers.smartpdfreader.AppConstants.rateUs;
 
 /**
  * Created by risha on 5/4/2017.
@@ -205,7 +208,7 @@ public class PdfFragment extends Fragment {
                 }
                 break;
             case R.id.two:
-                Toast.makeText(getContext(), "TWO", Toast.LENGTH_SHORT).show();
+                createAndShowDialog();
                 break;
 
 
@@ -260,6 +263,31 @@ public class PdfFragment extends Fragment {
             YPlayer.cueVideo(VIDEO_ID);
         }
 
+    }
+
+    public void createAndShowDialog() {
+        AlertDialog buildexit = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.title)
+                .setMessage(R.string.message)
+                .setPositiveButton("Rate Us", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("market://details?id="+rateUs));
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+
+        buildexit.show();
     }
 
 }
