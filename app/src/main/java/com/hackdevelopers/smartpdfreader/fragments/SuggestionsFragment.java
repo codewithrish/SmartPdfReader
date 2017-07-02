@@ -29,6 +29,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.NativeExpressAdView;
 import com.hackdevelopers.smartpdfreader.R;
 import com.hackdevelopers.smartpdfreader.RecyclerItemClickListener;
 import com.hackdevelopers.smartpdfreader.events.SearchKeyWordEvent;
@@ -98,6 +100,7 @@ public class SuggestionsFragment extends Fragment implements ApiFragment.Callbac
 
         if(view  == null) {
             view = inflater.inflate(R.layout.fragment_suggestions, container, false);
+
             view.findViewById(R.id.analyze).setOnClickListener(mOnClickListener);
             mIntroduction = (TextView) view.findViewById(R.id.introduction);
             mResults = view.findViewById(R.id.results);

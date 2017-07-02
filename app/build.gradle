@@ -87,4 +87,5 @@ dependencies {
     //Pdf Analysis
     compile 'com.tom_roush:pdfbox-android:1.8.9.1'
     compile 'com.github.barteksc:android-pdf-viewer:2.4.0'
+    compile 'com.google.android.gms:play-services-ads:10.2.4'
 }

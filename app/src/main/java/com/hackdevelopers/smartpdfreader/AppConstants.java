@@ -33,7 +33,8 @@ public interface AppConstants {
     public static final int EXTERNAL_STORAGE_PERMISSION_CONSTANT = 1;
     public static final int REQUEST_PERMISSION_SETTING = 2;
 
-    public static final String rateUs = "com.hackdevelopers.smartpdfreader";
+    public static final String rateUs = "ca-app-pub-9339324316850793~1803202665";
+    public static final String ADMOB_APP_ID = "";
 
 
 }

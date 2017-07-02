@@ -13,6 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.hackdevelopers.smartpdfreader.adapters.ViewpPagerAdapter;
 import com.hackdevelopers.smartpdfreader.events.TextChangedEvent;
 import com.hackdevelopers.smartpdfreader.fragments.PdfFragment;
@@ -22,6 +25,8 @@ import com.hackdevelopers.smartpdfreader.fragments.VideosFragment;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import static com.hackdevelopers.smartpdfreader.AppConstants.ADMOB_APP_ID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,10 +40,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //MobileAds.initialize(this, ADMOB_APP_ID);
+
         if(!bus.isRegistered(this)) {
             bus.register(this);
         }
         setContentView(R.layout.activity_main);
+
+        AdView banner = (AdView) findViewById(R.id.adView);
+        banner.loadAd(new AdRequest.Builder().build());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
